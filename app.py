@@ -12,9 +12,9 @@ SENHA = "sua_senha"
 URL_CUPOM = "https://seudashboard.com/cupom/novo"
 
 # Dados do cupom
-email_cliente = "cliente@email.com"
-nome_cliente = "João da Silva"
-desconto = "20"  # porcentagem
+# email_cliente = "cliente@email.com"
+# nome_cliente = "João da Silva"
+# desconto = "20"  # porcentagem
 
 # --- INICIAR NAVEGADOR ---
 driver = webdriver.Chrome()
@@ -33,20 +33,21 @@ time.sleep(3)
 driver.get(URL_CUPOM)
 time.sleep(2)
 
+# --- ACESSAR O TIPO DE CUMPO ---
+
+driver.find_element(By.ID, "tipo de cupom - CLIENTE ESPECÍFICO").click()   # exemplo de checkbox
+
 # --- CONFIGURAR CHECBOXES ---
 
 driver.find_element(By.ID, "primeiro checkbox").click()   # exemplo de checkbox
 driver.find_element(By.ID, "segundo checkbox").click()  
 driver.find_element(By.ID, "terceiro checkbox").click()  
+driver.find_element(By.ID, "quarto checkbox").click()
 
 # --- PREENCHER FORMULÁRIO ---
-driver.find_element(By.ID, "email").send_keys(email_cliente)
-driver.find_element(By.ID, "nome").send_keys(nome_cliente)
-driver.find_element(By.ID, "desconto").send_keys(desconto)
-
-# --- ATIVAR BOTÕES (checkbox/toggle) ---
-driver.find_element(By.ID, "ativar_cupom").click()   # exemplo de checkbox
-driver.find_element(By.ID, "enviar_email").click()   # outro botão
+# driver.find_element(By.ID, "email").send_keys(email_cliente)
+# driver.find_element(By.ID, "nome").send_keys(nome_cliente)
+# driver.find_element(By.ID, "desconto").send_keys(desconto)
 
 # --- SELECIONAR UMA OPÇÃO DE LISTA ---
 select_element = driver.find_element(By.ID, "tipo_cupom")
@@ -65,9 +66,10 @@ select.select_by_visible_text("Primeira Compra")  # ou por value: select.select_
 # --- PROMPTS (MANUAIS) ---
 nome_cupom = input("Digite o NOME do cupom: ")
 descricao_cupom = input("Digite a DESCRIÇÃO do cupom: ")
+email_cupom = input("Digite o EMAIL do cliente para utilizar o cupom: ")
 
 # Exemplo de desconto dinâmico
-valor = int(input("Digite o valor da compra (exemplo: 1000 ou 2000): "))
+desconto = int(input("Digite o valor do desconto (exemplo: 1000 ou 2000): "))
 
 print(f"➡️ Cupom: {nome_cupom}, {descricao_cupom}, Desconto: {desconto}%")
 
@@ -75,9 +77,10 @@ print(f"➡️ Cupom: {nome_cupom}, {descricao_cupom}, Desconto: {desconto}%")
 driver.find_element(By.ID, "nome").send_keys(nome_cupom)
 driver.find_element(By.ID, "descricao").send_keys(descricao_cupom)
 driver.find_element(By.ID, "desconto").send_keys(str(desconto))
+driver.find_element(By.ID, "email do cliente").send_keys(email_cupom)
 
 
 # --- FINALIZA ---
-print("✅ Cupom criado com sucesso!")
+print(f"✅ Cupom {nome_cupom} criado com sucesso!")
 time.sleep(3)
 driver.quit()
