@@ -64,12 +64,16 @@ select.select_by_visible_text("Primeira Compra")  # ou por value: select.select_
 # alert.accept()  # confirma
 
 # --- PROMPTS (MANUAIS) ---
-nome_cupom = input("Digite o NOME do cupom: ")
-descricao_cupom = input("Digite a DESCRIÇÃO do cupom: ")
-email_cupom = input("Digite o EMAIL do cliente para utilizar o cupom: ")
+nome_cupom = driver.execute_script("return prompt('Digite o NOME do cupom:');")
+descricao_cupom = driver.execute_script("return prompt('Digite a DESCRIÇÃO do cupom:');")
+email_cupom = driver.execute_script("return prompt('Digite o EMAIL do cliente para utilizar o cupom: ');")
+
 
 # Exemplo de desconto dinâmico
-desconto = int(input("Digite o valor do desconto (exemplo: 1000 ou 2000): "))
+# desconto = int(input("Digite o valor do desconto (exemplo: 1000 ou 2000): "))
+
+desconto = driver.execute_script("return prompt('Digite o valor da compra (ex: 1000 ou 2000):');")
+
 
 print(f"➡️ Cupom: {nome_cupom}, {descricao_cupom}, Desconto: {desconto}%")
 
