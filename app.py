@@ -33,6 +33,12 @@ time.sleep(3)
 driver.get(URL_CUPOM)
 time.sleep(2)
 
+# --- CONFIGURAR CHECBOXES ---
+
+driver.find_element(By.ID, "primeiro checkbox").click()   # exemplo de checkbox
+driver.find_element(By.ID, "segundo checkbox").click()  
+driver.find_element(By.ID, "terceiro checkbox").click()  
+
 # --- PREENCHER FORMULÁRIO ---
 driver.find_element(By.ID, "email").send_keys(email_cliente)
 driver.find_element(By.ID, "nome").send_keys(nome_cliente)
@@ -49,12 +55,27 @@ select.select_by_visible_text("Primeira Compra")  # ou por value: select.select_
 
 # --- TRATAR ALERTAS (prompt de JS) ---
 # Supondo que ao salvar aparece um prompt pedindo nome do cupom
-driver.find_element(By.ID, "salvar_cupom").click()
-time.sleep(2)
+# driver.find_element(By.ID, "salvar_cupom").click()
+# time.sleep(2)
 
-alert = Alert(driver)
-alert.send_keys("CUPOM-JOAO-20OFF")  # digita no prompt
-alert.accept()  # confirma
+# alert = Alert(driver)
+# alert.send_keys("CUPOM-JOAO-20OFF")  # digita no prompt
+# alert.accept()  # confirma
+
+# --- PROMPTS (MANUAIS) ---
+nome_cupom = input("Digite o NOME do cupom: ")
+descricao_cupom = input("Digite a DESCRIÇÃO do cupom: ")
+
+# Exemplo de desconto dinâmico
+valor = int(input("Digite o valor da compra (exemplo: 1000 ou 2000): "))
+
+print(f"➡️ Cupom: {nome_cupom}, {descricao_cupom}, Desconto: {desconto}%")
+
+# --- PREENCHER FORMULÁRIO ---
+driver.find_element(By.ID, "nome").send_keys(nome_cupom)
+driver.find_element(By.ID, "descricao").send_keys(descricao_cupom)
+driver.find_element(By.ID, "desconto").send_keys(str(desconto))
+
 
 # --- FINALIZA ---
 print("✅ Cupom criado com sucesso!")
